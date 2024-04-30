@@ -1,7 +1,20 @@
-version: "3.1"
-
 # mount the dbt directory as a volume
 services:
+  webserver:
+    #image: quay.io/astronomer/astro-runtime:8.8.0
+    #image: quay.io/astronomer/astro-runtime:11.2.0
+    #image: quay.io/astronomer/astro-runtime:8.10.0
+    image: quay.io/astronomer/astro-runtime:10.8.0
+    #image: quay.io/astronomer/astro-runtime:9.13.0
+    #command: 'bash -c "airflow db migrate && airflow webserver"'
+    ports:
+      - "9090:8080"  # Maps port 8080 on the host to port 8080 on the container
+    environment:
+      - AIRFLOW__WEBSERVER__WEB_SERVER_HOST=0.0.0.0
+      - update_url=disabled
+
   scheduler:
+    #command: 'bash -c "airflow db migrate && airflow scheduler"'
     volumes:
       - ./dbt:/usr/local/airflow/dbt
+

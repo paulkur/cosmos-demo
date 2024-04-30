@@ -1,4 +1,4 @@
-airflow_db:
+airflow_db_raw:
   target: dev
   outputs:
     dev:
@@ -8,5 +8,18 @@ airflow_db:
       password: postgres
       port: 5432
       dbname: postgres
+      schema: dbt
+      threads: 4
+
+airflow_db:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: 192.168.1.110
+      user: usr_airflow
+      password: airflow7812
+      port: 5432
+      dbname: airflowdb
       schema: dbt
       threads: 4
